@@ -1,0 +1,9 @@
+{
+	"name": "df-crepantherx",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "420872e8-5185-4e51-87f6-fba4dff17b25",
+		"tenantId": "edf442f5-b994-4c86-a131-b42b03a16c95"
+	}
+}
