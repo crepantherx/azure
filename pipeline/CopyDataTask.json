@@ -1,0 +1,469 @@
+{
+	"name": "CopyDataTask",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_7a8",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_7a8",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "employees.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "employees.@{item().destination.table}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "SqlServerSink",
+									"tableOption": "autoCreate"
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false,
+								"translator": {
+									"value": "@item().copyActivity.translator",
+									"type": "Expression"
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_7a8",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_7a8",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().destination.table"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "departments"
+						},
+						"destination": {
+							"table": "departments"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "dept_no",
+											"type": "String",
+											"physicalType": "nchar"
+										},
+										"sink": {
+											"name": "dept_no",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "dept_name",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "dept_name",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "dept_emp"
+						},
+						"destination": {
+							"table": "dept_emp"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "emp_no",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "emp_no",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "dept_no",
+											"type": "String",
+											"physicalType": "nchar"
+										},
+										"sink": {
+											"name": "dept_no",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "from_date",
+											"type": "Date",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "from_date",
+											"type": "Date"
+										}
+									},
+									{
+										"source": {
+											"name": "to_date",
+											"type": "Date",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "to_date",
+											"type": "Date"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "dept_manager"
+						},
+						"destination": {
+							"table": "dept_manager"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "emp_no",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "emp_no",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "dept_no",
+											"type": "String",
+											"physicalType": "nchar"
+										},
+										"sink": {
+											"name": "dept_no",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "from_date",
+											"type": "Date",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "from_date",
+											"type": "Date"
+										}
+									},
+									{
+										"source": {
+											"name": "to_date",
+											"type": "Date",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "to_date",
+											"type": "Date"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "employees"
+						},
+						"destination": {
+							"table": "employees"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "emp_no",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "emp_no",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "birth_date",
+											"type": "DateTime",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "birth_date",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "name",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "sur_name",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "sur_name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "gender",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "gender",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "hire_date",
+											"type": "DateTime",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "hire_date",
+											"type": "DateTime"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "salaries"
+						},
+						"destination": {
+							"table": "salaries"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "emp_no",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "emp_no",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "salary",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "salary",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "from_date",
+											"type": "DateTime",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "from_date",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "to_date",
+											"type": "DateTime",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "to_date",
+											"type": "DateTime"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "titles"
+						},
+						"destination": {
+							"table": "titles"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "title",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "title",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "from_date",
+											"type": "DateTime",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "from_date",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "to_date",
+											"type": "DateTime",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "to_date",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "emp_no",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "emp_no",
+											"type": "Int32"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						}
+					}
+				]
+			}
+		},
+		"annotations": []
+	}
+}
