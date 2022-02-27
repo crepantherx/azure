@@ -1,0 +1,16 @@
+{
+	"name": "PremData",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=CREPANTHERX;initial catalog=Employee;user id=crepantherx",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzZTNkN2M0MC01YzYzLTRmNDItOWI4Ni1hNjVkZjdkMjA5N2EiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IrOnPremData",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
